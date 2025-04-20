@@ -1,0 +1,6 @@
+navbar
+Hero
+Guide
+Contact
+About
+Footer

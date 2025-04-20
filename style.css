@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Nav CSS */
+
+.logo-div img {
+  width: 60px;
+}
+
+header > img {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.87);
+  color: orange;
+}
+
+nav .logo-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: orange;
+  font-size: 1.2rem;
+  margin: 0 20px;
+}
+
+nav img {
+  filter: invert(1);
+}
+
+.left-space {
+  width: 6vw;
+  border-right: 1px solid rgb(63, 63, 63);
+}
+
+.right-space {
+  width: 6vw;
+}
+
+.middle-nav {
+  width: 80vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-middle-right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  align-self: center;
+  align-items: flex-end;
+}
