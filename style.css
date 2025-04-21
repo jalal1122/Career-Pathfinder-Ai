@@ -22,7 +22,8 @@ header > img {
 nav {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  justify-content: center;
+  padding: 10px 0px;
   background-color: rgba(0, 0, 0, 0.87);
   color: orange;
 }
@@ -45,20 +46,15 @@ nav img {
   filter: invert(1);
 }
 
-.left-space {
-  width: 6vw;
-  border-right: 1px solid rgb(63, 63, 63);
-}
-
-.right-space {
-  width: 6vw;
-}
-
 .middle-nav {
-  width: 80vw;
+  width: 88vw;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
+  padding: 14px;
+  border-left: 1px solid orange;
+  border-right: 1px solid orange;
+  border-bottom: 1px solid orange;
 }
 
 .nav-middle-right{
@@ -68,4 +64,68 @@ nav img {
   gap: 20px;
   align-self: center;
   align-items: flex-end;
+}
+
+.nav-middle-left{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  align-self: center;
+  align-items: flex-end;
+}
+
+.nav-links{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  align-self: center;
+  align-items: flex-end;
+}
+
+.nav-links a{
+  text-decoration: none;
+  color: orange;
+  font-size: 26px;
+  margin: 0 10px;
+}
+
+.time{
+  gap: 20px;
+  font-size: 20px;
+  align-self: center;
+  align-items: flex-end;
+}
+
+.date{
+  gap: 20px;
+  font-size: 20px;
+  align-self: center;
+  align-items: flex-end;
+}
+
+.navContactMeBtn{
+  background-color: orange;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+.nav-left-line{
+  width: 1px;
+  height: 80px;
+  background-color: orange;
+  position: absolute;
+  left: 5vw;
+}
+.nav-right-line{
+  background-color: orange;
+  position: absolute;
+  right: 5vw;
+  width: 1px;
+  height: 80px;
 }
