@@ -1,5 +1,5 @@
 import React from "react";
-// import {logoImg} from '../assets/logo.png'
+import { Link } from "react-scroll";
 
 const HeroSection = () => {
   return (
@@ -21,7 +21,7 @@ const HeroSection = () => {
         </div>
         {/* Hero Div */}
         <div className="hero-div w-[60vw] h-[50vh] bg-[#9ebbb9] rounded-4xl shadow-xl text-[#0D2B4E] p-5 flex flex-col justify-center items-center gap-5 text-center hover:shadow-2xl transition-all duration-300 ease-in-out">
-            {/* Hero Paragraphs */}
+          {/* Hero Paragraphs */}
           <h3 className="text-2xl">
             Shape Your Future with AI-Powered Career Guidance
           </h3>
@@ -35,7 +35,7 @@ const HeroSection = () => {
             responses and delivers personalized career recommendations, learning
             paths, and skill-building resources — all in one place.
           </p>
-          <p className="text-xl mt-5"> 
+          <p className="text-xl mt-5">
             Whether you're a student exploring possibilities or a professional
             planning your next move, Career Pathfinder AI is here to guide you
             every step of the way.
@@ -46,8 +46,13 @@ const HeroSection = () => {
               Discover the right path. Build a future you&rsquo;re proud of.
             </strong>
           </p>
-            {/* Button */}
-          <button className="text-white rounded-4xl bg-[#0D2B4E] font-semibold px-14 py-3 text-2xl hover:scale-105 active:scale-95 hover:shadow-md">Start Exploring</button>
+          {/* Button */}
+
+          <Link to="inputFormSection" smooth={true} duration={800} offset={-100}>
+            <button className="text-white rounded-4xl bg-[#0D2B4E] font-semibold px-14 py-3 text-2xl hover:scale-105 active:scale-95 hover:shadow-md">
+              Start Exploring
+            </button>
+          </Link>
         </div>
         <div className="hero-bottom-white-div w-[60vw] h-[5vh] bg-white mt-[-80px]"></div>
       </div>
