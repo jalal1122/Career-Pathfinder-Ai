@@ -3,3 +3,15 @@
 body{
   background-color: #CECECE;
 }
+
+.input-section-inputs{
+  @apply flex flex-col justify-center items-start;
+}
+
+.input-class{
+  @apply  p-3 rounded-[8px] shadow-md text-[#0D2B4E] text-xl w-[250px];
+}
+
+.label-class{
+  @apply text-[#0D2B4E] text-xl font-bold;
+}
