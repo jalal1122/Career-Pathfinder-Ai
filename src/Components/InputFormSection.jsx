@@ -21,21 +21,62 @@ const InputFormSection = () => {
       contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
     });
     let res = response.text.replaceAll("*", "");
+
+    console.log(res);
     
-    const paragraphs = res.split("\n\n")
-    let bestCareerOptions = paragraphs[1] + "\n" + paragraphs[2]
-    let bestCAreerHeading = paragraphs[1]
-    let bestCareerSubHeadings = paragraphs[2].split("\n").map((heading)=>{
-      return heading.split(":")[0]
-    })
 
+    const paragraphs = res.split("\n\n");
 
-    // let skillsNeeded = paragraphs[3] + "\n" + paragraphs[4]
-    // let learningRoadmap = paragraphs[5] + "\n" + paragraphs[6]
+    // Career Options filtering
+
+    let bestCareerOptions = paragraphs[1] + "\n" + paragraphs[2];
+    let bestCAreerHeading = paragraphs[1];
+    let bestCareerSubHeadings = paragraphs[2].split("\n").map((heading) => {
+      return heading.split(":")[0];
+    });
+    let bestCareerSubHeadingsDescription = paragraphs[2]
+      .split("\n")
+      .map((heading) => {
+        return heading.split(":")[1];
+      });
+
+    // skills Needed filtering
+
+    let skillsNeededHeading = paragraphs[3];
+    let skillsNeededSubHeadings = paragraphs[4].split("\n").map((heading) => {
+      return heading.split(":")[0];
+    });
+    let skillsNeededSubHeadinsDescription = paragraphs[4]
+      .split("\n")
+      .map((heading) => {
+        return heading.split(":")[1];
+      });
+
+    let learningRoadmapHeading = paragraphs[5];
+    let learningRoadmapSubHeadings = paragraphs[6]
+      .split("\n")
+      .map((heading) => {
+        return heading.split(":")[0];
+      });
+
+    let learningRoadmapSubHeadinsDescription = paragraphs[6]
+      .split("\n")
+      .map((heading) => {
+        return heading.split(":")[1];
+      });
+
     setApiResponse(paragraphs);
-    console.log(bestCareerOptions);
+    // console.log(bestCareerOptions);
     // console.log("Skills Needed:", skillsNeeded);
     // console.log("Learning Roadmap:", learningRoadmap);
+
+    // console.log(skillsNeededHeading);
+    // console.log(skillsNeededSubHeadings);
+    // console.log(skillsNeededSubHeadinsDescription);
+
+    // console.log(learningRoadmapHeading);
+    // console.log(learningRoadmapSubHeadings);
+    // console.log(learningRoadmapSubHeadinsDescription);
   };
 
   return (
@@ -180,7 +221,6 @@ const InputFormSection = () => {
             </div>
           );
         })} */}
-
 
         {/* {apiResponse.map((paragraph, index) => {
           return (
