@@ -3,32 +3,7 @@ import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
 
 const InputFormSection = () => {
-  const apiKey = "AIzaSyCfEnLRPXT3nF1imavNqGmEKEfEYolNWEE";
-
-  const ai = new GoogleGenAI({ apiKey: apiKey });
-
-  const [apiResponse, setApiResponse] = useState({});
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
-    });
-    let res = response.text.replaceAll("*", "");
-
-    console.log(res);
-    
-
-    const paragraphs = res.split("\n\n");
-
-    // Career Options filtering
-
+  const formatingString = (paragraphs) => {
     let bestCareerOptions = paragraphs[1] + "\n" + paragraphs[2];
     let bestCAreerHeading = paragraphs[1];
     let bestCareerSubHeadings = paragraphs[2].split("\n").map((heading) => {
@@ -65,18 +40,51 @@ const InputFormSection = () => {
         return heading.split(":")[1];
       });
 
+    localStorage.setItem(
+      "aiResponse",
+      JSON.stringify(
+        bestCareerOptions,
+        bestCAreerHeading,
+        bestCareerSubHeadings,
+        bestCareerSubHeadingsDescription,
+        skillsNeededHeading,
+        skillsNeededSubHeadings,
+        skillsNeededSubHeadinsDescription,
+        learningRoadmapHeading,
+        learningRoadmapSubHeadings,
+        learningRoadmapSubHeadinsDescription
+      )
+    );
+  };
+
+  const apiKey = "AIzaSyCfEnLRPXT3nF1imavNqGmEKEfEYolNWEE";
+
+  const ai = new GoogleGenAI({ apiKey: apiKey });
+
+  const [apiResponse, setApiResponse] = useState({});
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
+    });
+    let res = response.text.replaceAll("*", "");
+
+    console.log(res);
+
+    const paragraphs = res.split("\n\n");
+
+    formatingString(paragraphs);
+
+    // Career Options filtering
+
     setApiResponse(paragraphs);
-    // console.log(bestCareerOptions);
-    // console.log("Skills Needed:", skillsNeeded);
-    // console.log("Learning Roadmap:", learningRoadmap);
-
-    // console.log(skillsNeededHeading);
-    // console.log(skillsNeededSubHeadings);
-    // console.log(skillsNeededSubHeadinsDescription);
-
-    // console.log(learningRoadmapHeading);
-    // console.log(learningRoadmapSubHeadings);
-    // console.log(learningRoadmapSubHeadinsDescription);
   };
 
   return (
@@ -205,34 +213,6 @@ const InputFormSection = () => {
             </button>
           </form>
         </div>
-      </div>
-      <div>
-        {/* {apiResponse.map((paragraph, index) => {
-          return (
-            <div
-              key={index}
-              className="flex justify-center items-center bg-[#D7E4EA] text-[#0D2B4E]"
-            >
-              {paragraph.endsWith(":") ? (
-                <h1 className="text-4xl font-bold">{paragraph}</h1>
-              ) : (
-                <p className="text-2xl font-semibold">{paragraph}</p>
-              )}
-            </div>
-          );
-        })} */}
-
-        {/* {apiResponse.map((paragraph, index) => {
-          return (
-            <div key={index}>
-              {paragraph.endsWith(":") ? (
-                <h1>{paragraph}</h1>
-              ) : (
-                <p>{paragraph}</p>
-              )}
-            </div>
-          );
-        })} */}
       </div>
     </>
   );
