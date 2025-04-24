@@ -1,11 +1,34 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
 
 const InputFormSection = () => {
-  const formatingString = (paragraphs) => {
-    let bestCareerOptions = paragraphs[1] + "\n" + paragraphs[2];
-    let bestCAreerHeading = paragraphs[1];
+  const apiKey = import.meta.env.REACT_APP_API_KEY;
+
+  console.log(apiKey);
+  
+
+  const ai = new GoogleGenAI({ apiKey: apiKey });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
+    });
+    let res = response.text.replaceAll("*", "");
+
+    console.log(res);
+
+    const paragraphs = res.split("\n\n");
+
+    // Career Options filtering
+    let bestCareerHeading = paragraphs[1];
     let bestCareerSubHeadings = paragraphs[2].split("\n").map((heading) => {
       return heading.split(":")[0];
     });
@@ -27,6 +50,8 @@ const InputFormSection = () => {
         return heading.split(":")[1];
       });
 
+    // Learning Roadmap filtering
+
     let learningRoadmapHeading = paragraphs[5];
     let learningRoadmapSubHeadings = paragraphs[6]
       .split("\n")
@@ -40,51 +65,29 @@ const InputFormSection = () => {
         return heading.split(":")[1];
       });
 
+    localStorage.setItem("bestCAreerHeading", JSON.stringify(bestCareerHeading));
+    localStorage.setItem("bestCareerSubHeadings", JSON.stringify(bestCareerSubHeadings));
+
     localStorage.setItem(
-      "aiResponse",
-      JSON.stringify(
-        bestCareerOptions,
-        bestCAreerHeading,
-        bestCareerSubHeadings,
-        bestCareerSubHeadingsDescription,
-        skillsNeededHeading,
-        skillsNeededSubHeadings,
-        skillsNeededSubHeadinsDescription,
-        learningRoadmapHeading,
-        learningRoadmapSubHeadings,
-        learningRoadmapSubHeadinsDescription
-      )
+      "bestCareerSubHeadingsDescription",
+      JSON.stringify(bestCareerSubHeadingsDescription)
     );
-  };
 
-  const apiKey = "AIzaSyCfEnLRPXT3nF1imavNqGmEKEfEYolNWEE";
-
-  const ai = new GoogleGenAI({ apiKey: apiKey });
-
-  const [apiResponse, setApiResponse] = useState({});
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
-    });
-    let res = response.text.replaceAll("*", "");
-
-    console.log(res);
-
-    const paragraphs = res.split("\n\n");
-
-    formatingString(paragraphs);
-
-    // Career Options filtering
-
-    setApiResponse(paragraphs);
+    localStorage.setItem("skillsNeededHeading", JSON.stringify(skillsNeededHeading));
+    localStorage.setItem("skillsNeededSubHeadings", JSON.stringify(skillsNeededSubHeadings));
+    localStorage.setItem("skillsNeededSubHeadinsDescription", JSON.stringify(skillsNeededSubHeadinsDescription));
+    localStorage.setItem(
+      "learningRoadmapHeading",
+      JSON.stringify(learningRoadmapHeading)
+    );
+    localStorage.setItem(
+      "learningRoadmapSubHeadings",
+      JSON.stringify(learningRoadmapSubHeadings)
+    );
+    localStorage.setItem(
+      "learningRoadmapSubHeadinsDescription",
+      JSON.stringify(learningRoadmapSubHeadinsDescription)
+    );
   };
 
   return (
@@ -205,6 +208,7 @@ const InputFormSection = () => {
                 className="bg-white input-class"
               ></textarea>
             </div>
+            {/* Generate Career Path Button */}
             <button
               type="submit"
               className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
