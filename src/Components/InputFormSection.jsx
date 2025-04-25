@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
 
 const InputFormSection = () => {
-  const apiKey = import.meta.env.REACT_APP_API_KEY;
-
-  console.log(apiKey);
+  const apiKey = import.meta.env.VITE_API_API_KEY;
   
 
   const ai = new GoogleGenAI({ apiKey: apiKey });
@@ -65,7 +63,8 @@ const InputFormSection = () => {
         return heading.split(":")[1];
       });
 
-    localStorage.setItem("bestCAreerHeading", JSON.stringify(bestCareerHeading));
+    localStorage.setItem("bestCareerHeading", JSON.stringify(bestCareerHeading));
+    
     localStorage.setItem("bestCareerSubHeadings", JSON.stringify(bestCareerSubHeadings));
 
     localStorage.setItem(
@@ -74,16 +73,21 @@ const InputFormSection = () => {
     );
 
     localStorage.setItem("skillsNeededHeading", JSON.stringify(skillsNeededHeading));
+
     localStorage.setItem("skillsNeededSubHeadings", JSON.stringify(skillsNeededSubHeadings));
+
     localStorage.setItem("skillsNeededSubHeadinsDescription", JSON.stringify(skillsNeededSubHeadinsDescription));
+
     localStorage.setItem(
       "learningRoadmapHeading",
       JSON.stringify(learningRoadmapHeading)
     );
+
     localStorage.setItem(
       "learningRoadmapSubHeadings",
       JSON.stringify(learningRoadmapSubHeadings)
     );
+
     localStorage.setItem(
       "learningRoadmapSubHeadinsDescription",
       JSON.stringify(learningRoadmapSubHeadinsDescription)
