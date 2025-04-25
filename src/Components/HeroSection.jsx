@@ -48,7 +48,7 @@ const HeroSection = () => {
           </p>
           {/* Button */}
 
-          <Link to="inputFormSection" smooth={true} duration={500} offset={-100}>
+          <Link to="inputFormSection" smooth={true} duration={500}>
             <button className="text-white rounded-4xl bg-[#0D2B4E] font-semibold px-14 py-3 text-2xl hover:scale-105 active:scale-95 hover:shadow-md">
               Start Exploring
             </button>

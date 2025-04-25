@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
+import { Link } from "react-scroll";
 
-const InputFormSection = () => {
+const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
   const apiKey = import.meta.env.VITE_API_API_KEY;
-  
 
   const ai = new GoogleGenAI({ apiKey: apiKey });
+
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = async (data) => {
+    localStorage.clear();
+    handleDataAvailability(false);
+    handleLoading(true);
+    
+    
+
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
@@ -63,20 +71,35 @@ const InputFormSection = () => {
         return heading.split(":")[1];
       });
 
-    localStorage.setItem("bestCareerHeading", JSON.stringify(bestCareerHeading));
-    
-    localStorage.setItem("bestCareerSubHeadings", JSON.stringify(bestCareerSubHeadings));
+    localStorage.setItem(
+      "bestCareerHeading",
+      JSON.stringify(bestCareerHeading)
+    );
+
+    localStorage.setItem(
+      "bestCareerSubHeadings",
+      JSON.stringify(bestCareerSubHeadings)
+    );
 
     localStorage.setItem(
       "bestCareerSubHeadingsDescription",
       JSON.stringify(bestCareerSubHeadingsDescription)
     );
 
-    localStorage.setItem("skillsNeededHeading", JSON.stringify(skillsNeededHeading));
+    localStorage.setItem(
+      "skillsNeededHeading",
+      JSON.stringify(skillsNeededHeading)
+    );
 
-    localStorage.setItem("skillsNeededSubHeadings", JSON.stringify(skillsNeededSubHeadings));
+    localStorage.setItem(
+      "skillsNeededSubHeadings",
+      JSON.stringify(skillsNeededSubHeadings)
+    );
 
-    localStorage.setItem("skillsNeededSubHeadinsDescription", JSON.stringify(skillsNeededSubHeadinsDescription));
+    localStorage.setItem(
+      "skillsNeededSubHeadinsDescription",
+      JSON.stringify(skillsNeededSubHeadinsDescription)
+    );
 
     localStorage.setItem(
       "learningRoadmapHeading",
@@ -92,6 +115,8 @@ const InputFormSection = () => {
       "learningRoadmapSubHeadinsDescription",
       JSON.stringify(learningRoadmapSubHeadinsDescription)
     );
+
+    handleDataAvailability(true);
   };
 
   return (
@@ -213,12 +238,19 @@ const InputFormSection = () => {
               ></textarea>
             </div>
             {/* Generate Career Path Button */}
-            <button
-              type="submit"
-              className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
-            >
-              Generate Career Path 🔍
-            </button>
+            {/* <Link to="aiSuggestionsSection" smooth={true} duration={500} offset={-100}> */}
+              <button
+                {...register("submit")}
+                onClick={() => {
+                  isSubmitting ? setBtnDisabled(true) : setBtnDisabled(false);
+                }}
+                disabled={btnDisabled}
+                type="submit"
+                className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
+              >
+                Generate Career Path 🔍
+              </button>
+            {/* </Link> */}
           </form>
         </div>
       </div>
