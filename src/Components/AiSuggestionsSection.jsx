@@ -65,11 +65,11 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
   return (
     <>
       {/* Section Div */}
-      <div className="SectionContainer bg-white w-full text-[#0D2B4E] p-10">
+      <div className="SectionContainer bg-white w-full text-[#0D2B4E]">
         {/* Heading Div*/}
-        <div className="suggestion-div bg-[#CBDDE7] w-full h-[50vh] p-4">
+        <div className="suggestion-div bg-[#CBDDE7] w-full h-[50vh] p-4 mb-20">
           {/* Heading */}
-          <h1 className="text-8xl font-bold text-center mt-30 mb-20">
+          <h1 className="md:text-6xl text-4xl font-bold text-center mt-30 mb-20">
             Ai Powered-Suggestions
           </h1>
           
@@ -78,9 +78,9 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
           {/* Suggestion Cards Div */}
         </div>
         {isDataAvailable && (
-          <div className="suggestions-cards rounded-lg p-4 flex items-center justify-center gap-10 flex-wrap-reverse mt-[-25vh]">
+          <div className="suggestions-cards rounded-lg p-10 flex items-center justify-center gap-10 flex-wrap-reverse mt-[-25vh]">
             {/* Best Career Card */}
-            <div className="card-career w-[40vw] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
+            <div className="card-career w-[300px] sm:w-[450px] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
               {careerOptionHeading && (
                 <h1 className="text-4xl text-center text-[#0D2B4E] font-semibold flex items-center justify-center gap-2 mb-5">
                   <div className="flex items-center justify-center p-5 bg-white h-auto w-25 rounded-full invert">
@@ -95,7 +95,7 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
                     <h1
                       className={`${
                         index === 0 ? "text-4xl" : "text-3xl"
-                      } text-[#0D2B4E] mb-5 font-semibold text-center`}
+                      } text-[#0D2B4E] mb-5 font-semibold text-center break-all`}
                     >
                       {heading} {index === 0 ? " " : ":"}
                     </h1>
@@ -108,7 +108,7 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
                 ))}
             </div>
             {/* Skills Needed Card */}
-            <div className="card-skills-needed w-[40vw] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
+            <div className="card-skills-needed w-[300px] sm:w-[450px] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
               {setskillsNeededHeading && (
                 <h1 className="text-4xl text-center text-[#0D2B4E] font-semibold flex items-center justify-center gap-2 mb-5">
                   <div className="flex items-center justify-center p-5 bg-white h-auto w-25 rounded-full invert">
@@ -120,7 +120,7 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
               {skillsNeededSubHeadings &&
                 skillsNeededSubHeadings.map((heading, index) => (
                   <div key={index}>
-                    <h1 className="text-3xl text-[#0D2B4E] mb-5 font-semibold text-center">
+                    <h1 className="text-3xl text-[#0D2B4E] mb-5 font-semibold text-center break-all">
                       {heading} :
                     </h1>
                     {skillsNeededSubHeadinsDescription[index] && (
@@ -132,7 +132,7 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
                 ))}
             </div>
             {/* Learning RoadMap Card */}
-            <div className="card-learning-roadmap w-[40vw] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
+            <div className="card-learning-roadmap w-[300px] sm:w-[450px] p-8 rounded-2xl bg-[#CBDDE7] border-18 border-white shadow-md shadow-black/30">
               {learningRoadmapHeading && (
                 <h1 className="text-4xl text-center text-[#0D2B4E] font-semibold flex items-center justify-center gap-2 mb-5">
                   <div className="flex items-center justify-center p-5 bg-white h-auto w-25 rounded-full invert">
@@ -144,7 +144,7 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
               {learningRoadmapSubHeadings &&
                 learningRoadmapSubHeadings.map((heading, index) => (
                   <div key={index}>
-                    <h1 className="text-3xl text-[#0D2B4E] mb-5 font-semibold text-center">
+                    <h1 className="text-3xl text-[#0D2B4E] mb-5 font-semibold text-center break-all">
                       {heading} :
                     </h1>
                     {learningRoadmapSubHeadinsDescription[index] && (

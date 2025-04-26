@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
-import { Link } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 
 const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
   const apiKey = import.meta.env.VITE_API_API_KEY;
@@ -9,6 +9,8 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
   const ai = new GoogleGenAI({ apiKey: apiKey });
 
   const [btnDisabled, setBtnDisabled] = useState(false);
+
+  const navigate = useNavigate()
 
   const {
     register,
@@ -20,8 +22,8 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
     localStorage.clear();
     handleDataAvailability(false);
     handleLoading(true);
-    
-    
+
+    console.log("clicked");
 
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
@@ -117,17 +119,19 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
     );
 
     handleDataAvailability(true);
+
+    navigate("/aiSuggestionsSection")
   };
 
   return (
     <>
       {/* Input SEction main div */}
       <div
-        className="w-full h-screen flex justify-center items-center bg-[#D7E4EA] text-[#0D2B4E]"
+        className="w-full flex justify-center items-center bg-[#D7E4EA] text-[#0D2B4E] p-10 xl:h-screen"
         id="inputFormSection"
       >
         {/* centered input section div */}
-        <div className="input-section-container flex flex-col justify-center items-center gap-10 w-[50vw] h-[80vh] text-center">
+        <div className="input-section-container flex flex-col justify-center items-center gap-10 w-[50vw] text-center">
           {/* Heading  */}
           <h1 className="text-6xl font-bold">
             &quot;Tell Us About Yourself&quot;
@@ -238,19 +242,17 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
               ></textarea>
             </div>
             {/* Generate Career Path Button */}
-            {/* <Link to="aiSuggestionsSection" smooth={true} duration={500} offset={-100}> */}
-              <button
-                {...register("submit")}
-                onClick={() => {
-                  isSubmitting ? setBtnDisabled(true) : setBtnDisabled(false);
-                }}
-                disabled={btnDisabled}
-                type="submit"
-                className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
-              >
-                Generate Career Path 🔍
-              </button>
-            {/* </Link> */}
+            <button
+              {...register("submit")}
+              onClick={() => {
+                isSubmitting ? setBtnDisabled(true) : setBtnDisabled(false);
+              }}
+              disabled={btnDisabled}
+              type="submit"
+              className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
+            >
+              Generate Career Path 🔍
+            </button>
           </form>
         </div>
       </div>

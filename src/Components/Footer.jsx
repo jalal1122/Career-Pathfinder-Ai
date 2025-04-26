@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <div className="w-full flex items-center justify-around bg-[#9EBBB9] p-5">
+    <div className="w-full flex flex-wrap items-center justify-around bg-[#9EBBB9] p-5">
       <div className="left">
         <h1 className="text-3xl font-bold text-[#0D2B4E] mb-5">
           Career Pathfinder AI

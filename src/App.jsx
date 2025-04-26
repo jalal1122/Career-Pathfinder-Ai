@@ -1,9 +1,10 @@
 import "./App.css";
-import AiSuggestionsSection from "./Components/AiSuggestionsSection";
 import Footer from "./Components/Footer.jsx";
 import HeroSection from "./Components/HeroSection";
-import InputFormSection from "./Components/InputFormSection";
 import { useState } from "react";
+import InputFormSection from "./Components/InputFormSection.jsx";
+import AiSuggestionsSection from "./Components/AiSuggestionsSection.jsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const [isDataAvailable, setIsDataAvailable] = useState(false);
@@ -12,7 +13,7 @@ function App() {
 
   const handleLoading = (bool) => {
     setisLoading(bool);
-  }
+  };
 
   const handleDataAvailability = (bool) => {
     setIsDataAvailable(bool);
@@ -20,14 +21,35 @@ function App() {
 
   return (
     <>
-      <HeroSection />
-      <div name="inputFormSection">
-        <InputFormSection handleDataAvailability = {handleDataAvailability} handleLoading = {handleLoading}/>
-      </div>
-      <div name="aiSuggestionsSection">
-        <AiSuggestionsSection isDataAvailable = {isDataAvailable} isLoading = {isLoading} handleLoading = {handleLoading}/>
-      </div>
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HeroSection />} />
+          <Route
+            path="/inputFormSection"
+            element={
+              <>
+                <InputFormSection
+                  handleDataAvailability={handleDataAvailability}
+                  handleLoading={handleLoading}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/aiSuggestionsSection"
+            element={
+              <>
+                <AiSuggestionsSection
+                  isDataAvailable={isDataAvailable}
+                  isLoading={isLoading}
+                  handleLoading={handleLoading}
+                />
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
