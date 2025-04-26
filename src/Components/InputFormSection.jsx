@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GoogleGenAI } from "@google/genai";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
   const apiKey = import.meta.env.VITE_API_API_KEY;
@@ -10,7 +12,7 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
 
   const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     register,
@@ -29,6 +31,7 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
       model: "gemini-2.0-flash",
       contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
     });
+    
     let res = response.text.replaceAll("*", "");
 
     console.log(res);
@@ -120,18 +123,28 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
 
     handleDataAvailability(true);
 
-    navigate("/aiSuggestionsSection")
+    navigate("/aiSuggestionsSection");
   };
 
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   return (
-    <>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1.2, ease: "easeInOut" }}
+    >
       {/* Input SEction main div */}
       <div
         className="w-full flex justify-center items-center bg-[#D7E4EA] text-[#0D2B4E] p-10 xl:h-screen"
         id="inputFormSection"
       >
         {/* centered input section div */}
-        <div className="input-section-container flex flex-col justify-center items-center gap-10 w-[50vw] text-center">
+        <div className="input-section-container flex flex-col justify-center items-center gap-10 w-[70vw] text-center">
           {/* Heading  */}
           <h1 className="text-6xl font-bold">
             &quot;Tell Us About Yourself&quot;
@@ -256,7 +269,7 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
           </form>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 

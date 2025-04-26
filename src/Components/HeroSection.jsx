@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const HeroSection = () => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  })
+
   return (
-    <>
+    <motion.div ref={ref} initial={{opacity: 0, y: 50}} animate={inView ? {opacity: 1, y: 0 } : {}} transition={{duration: 1.2, ease: "easeInOut"}}>
       {/* main Div */}
       <div className="w-full flex justify-end items-center flex-col gap-10 pt-5">
         {/* Heading of Hero */}
@@ -56,7 +63,7 @@ const HeroSection = () => {
         </div>
         <div className="hero-bottom-white-div md:w-[60vw] w-screen h-[5vh] bg-white mt-[-70px]"></div>
       </div>
-    </>
+    </motion.div>
   );
 };
 
