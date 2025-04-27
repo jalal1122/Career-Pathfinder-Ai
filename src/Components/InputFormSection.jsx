@@ -4,8 +4,9 @@ import { GoogleGenAI } from "@google/genai";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import Loader from "./Loader";
 
-const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
+const InputFormSection = ({ handleDataAvailability }) => {
   const apiKey = import.meta.env.VITE_API_API_KEY;
 
   const ai = new GoogleGenAI({ apiKey: apiKey });
@@ -13,6 +14,12 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const navigate = useNavigate();
+
+  const [isLoading, setisLoading] = useState(false);
+
+  const handleLoading = (bool) => {
+    setisLoading(bool);
+  };
 
   const {
     register,
@@ -31,10 +38,8 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
       model: "gemini-2.0-flash",
       contents: `my name is ${data.FullName} and I am interested in ${data.interests}. I have skills in ${data.skills} and my education is ${data.education}. I prefer ${data.workType} work style. My career goals are ${data.careerGoals}. so give me Best-fit career options, Skills needed, Learning roadmap and make it short`,
     });
-    
-    let res = response.text.replaceAll("*", "");
 
-    console.log(res);
+    let res = response.text.replaceAll("*", "");
 
     const paragraphs = res.split("\n\n");
 
@@ -255,17 +260,21 @@ const InputFormSection = ({ handleDataAvailability, handleLoading }) => {
               ></textarea>
             </div>
             {/* Generate Career Path Button */}
-            <button
-              {...register("submit")}
-              onClick={() => {
-                isSubmitting ? setBtnDisabled(true) : setBtnDisabled(false);
-              }}
-              disabled={btnDisabled}
-              type="submit"
-              className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
-            >
-              Generate Career Path 🔍
-            </button>
+            {isLoading ? (
+              <Loader />  
+            ) : (
+              <button
+                {...register("submit")}
+                onClick={() => {
+                  isSubmitting ? setBtnDisabled(true) : setBtnDisabled(false);
+                }}
+                disabled={btnDisabled}
+                type="submit"
+                className="rounded-2xl bg-[#0D2B4E] text-white px-9 py-3 text-2xl hover:scale-105 active:scale-95"
+              >
+                Generate Career Path 🔍
+              </button>
+            )}
           </form>
         </div>
       </div>

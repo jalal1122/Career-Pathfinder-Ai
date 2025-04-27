@@ -49,6 +49,7 @@ const StyledWrapper = styled.div`
   .words {
     overflow: hidden;
     position: relative;
+    height: 50px; /* Increased height for wider scrolling space */
   }
   .words::after {
     content: "";
@@ -65,11 +66,11 @@ const StyledWrapper = styled.div`
 
   .word {
     display: block;
-    height: 100%;
+    height: 50px; /* Match the height of the .words container */
     font-size: 32px;
     padding-left: 12px;
     color: #0d2b4e;
-    animation: spin_4991 5s infinite;
+    animation: spin_4991 4s infinite;
     font-weight: 900;
   }
 

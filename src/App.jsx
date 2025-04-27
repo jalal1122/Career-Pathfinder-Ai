@@ -9,12 +9,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   const [isDataAvailable, setIsDataAvailable] = useState(false);
 
-  const [isLoading, setisLoading] = useState(false);
-
-  const handleLoading = (bool) => {
-    setisLoading(bool);
-  };
-
   const handleDataAvailability = (bool) => {
     setIsDataAvailable(bool);
   };
@@ -30,7 +24,6 @@ function App() {
               <>
                 <InputFormSection
                   handleDataAvailability={handleDataAvailability}
-                  handleLoading={handleLoading}
                 />
               </>
             }
@@ -39,11 +32,7 @@ function App() {
             path="/aiSuggestionsSection"
             element={
               <>
-                <AiSuggestionsSection
-                  isDataAvailable={isDataAvailable}
-                  isLoading={isLoading}
-                  handleLoading={handleLoading}
-                />
+                <AiSuggestionsSection isDataAvailable={isDataAvailable} />
                 <Footer />
               </>
             }

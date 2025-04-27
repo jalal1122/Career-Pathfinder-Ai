@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Loader from "./Loader";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
+const AiSuggestionsSection = ({ isDataAvailable}) => {
   // Career Options States
   const [careerOptionHeading, setcareerOptionHeading] = useState(null);
   const [careerOptionSubHeadings, setcareerOptionSubHeadings] = useState(null);
@@ -59,10 +58,11 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
       setlearningRoadmapSubHeadinsDescription(
         JSON.parse(localStorage.getItem("learningRoadmapSubHeadinsDescription"))
       );
-     
-      handleLoading(false)
     }
-  }, [isDataAvailable, isLoading, handleLoading]);
+  }, [isDataAvailable]);
+
+  console.log(careerOptionHeading);
+  
 
   const {ref, inView} = useInView({
     triggerOnce: true,
@@ -81,11 +81,10 @@ const AiSuggestionsSection = ({ isDataAvailable, isLoading, handleLoading}) => {
           </h1>
           
           {/* Loader */}
-          {isLoading && <Loader  />}
           {/* Suggestion Cards Div */}
         </div>
         {isDataAvailable && (
-          <div className="suggestions-cards rounded-lg p-10 flex justify-center gap-10 flex-wrap-reverse 2xl:flex-wrap mt-[-25vh]">
+          <div className="suggestions-cards rounded-lg p-10 flex justify-center gap-10 flex-wrap 2xl:flex-wrap mt-[-25vh]">
             {/* Best Career Card */}
             <div className="card-career w-[300px] sm:w-[450px] md:p-8 p-3 rounded-2xl bg-[#CBDDE7] md:border-18 border-10 border-white shadow-md shadow-black/30">
               {careerOptionHeading && (
